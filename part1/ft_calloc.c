@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/17 10:35:36 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/17 10:35:41 by hes-sofy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdint.h>
+#include "libft.h"
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	size_t	i;
+	size_t	toutal;
+	char	*str;
+
+	if (size != 0 && nmemb > SIZE_MAX / size)
+		return (NULL);
+	toutal = nmemb * size;
+	str = malloc(toutal);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < toutal)
+	{
+		str[i] = 0;
+		i++;
+	}
+	return (str);
+}
