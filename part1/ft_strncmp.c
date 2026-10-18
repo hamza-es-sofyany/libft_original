@@ -1,26 +1,35 @@
-#include <stdio.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/17 17:17:34 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/17 17:18:30 by hes-sofy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "libft.h"
 
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-    size_t i;
+	size_t			i;
+	unsigned char	*pt1;
+	unsigned char	*pt2;
 
-    i = 0;
-    while ((i < n) && (s1[i] || s2[i]))
-    {
-        if (s1[i] > s2[i])
-            return (1);
-        else if (s1[i] < s2[i])
-        {
-            return (-1);
-        }
-        i++;
-    }
-    return (0);
-}
-int main(void)
-{
-    printf("%d %d\n", ft_strncmp("abc", "xyz", 0), strncmp("abc", "xyz", 0));
-    return (0);
+	pt1 = (unsigned char *)s1;
+	pt2 = (unsigned char *)s2;
+	i = 0;
+	while ((i < n) && (pt1[i] || pt2[i]))
+	{
+		if (pt1[i] > pt2[i])
+			return (1);
+		else if (pt1[i] < pt2[i])
+		{
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
 }

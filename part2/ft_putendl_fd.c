@@ -1,15 +1,14 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
-void ft_putendl_fd(char const *s, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
     size_t  i;
 
     i = 0;
     while (s[i])
     {
-        write(fd,s[i],1);
+        ft_putchar_fd(s[i], fd);
+        i++;
     }
     write(fd,"\n",1);
     
