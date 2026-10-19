@@ -8,7 +8,6 @@ char))
     size_t  len;
 
     len = ft_strlen(s) + 1;
-
     str = malloc(len);
     if (!str)
         return (NULL);
