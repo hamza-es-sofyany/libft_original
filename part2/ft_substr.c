@@ -1,28 +1,42 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/20 13:48:44 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/20 13:52:36 by hes-sofy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *ft_substr(char const *s, unsigned int start,
-size_t len)
+#include "../libft.h"
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    size_t  i;
-    size_t  len_s1;
-    size_t  len_s2;
-    char    *str;
+	size_t	i;
+	size_t	len_s1;
+	char	*str;
 
-    len_s2 = ft_strlen(s);
-    if (len_s2 < start)
-        return (NULL);
-    
-    len_s1 = ft_strlen(&s[start]) + 1;
-    str = malloc(len_s1);
-    if (!str)
-        return (NULL);
-    
-    i = 0;
-    while (s[start + i] && i < len)
-    {
-        str[i] = s[start + i];
-        i++;
-    }
-    str[i] = '\0';
-    return (str);
+	len_s1 = ft_strlen(s);
+	if (len_s1 < start)
+	{
+		str = malloc(1);
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
+		return (str);
+	}
+	len_s1 = ft_strlen(&s[start]);
+	str = malloc(len_s1 + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

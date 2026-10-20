@@ -1,69 +1,427 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>
 
-char    *ft_strtrim(char const *s1, char const *set);
+char	**ft_split(char const *s, char c);
 
-static void test_trim(int n, char const *s1,
-        char const *set, char const *expected)
+void	*__real_malloc(size_t size);
+
+static int	g_count = 0;
+static int	g_fail_at = 0;
+
+void	*__wrap_malloc(size_t size)
 {
-    char    *result;
-    int     passed;
-
-    result = ft_strtrim(s1, set);
-    passed = (result != NULL && strcmp(result, expected) == 0);
-
-    printf("Test %02d | Expected: \"%s\" | Returned: \"%s\" | %s\n",
-        n, expected, result ? result : "NULL",
-        passed ? "PASS" : "FAIL");
-    free(result);
+	g_count++;
+	if (g_fail_at != 0 && g_count == g_fail_at)
+		return (NULL);
+	return (__real_malloc(size));
 }
 
-int main(void)
+int	main(void)
 {
-    test_trim(1, "xxhelloxx", "x", "hello");
-    test_trim(2, "xyhelloyx", "xy", "hello");
-    test_trim(3, "  \tHello World\n  ", " \t\n", "Hello World");
-    test_trim(4, "hello", "x", "hello");
-    test_trim(5, "xxxx", "x", "");
-    test_trim(6, "", "x", "");
-    test_trim(7, "hello", "", "hello");
-    test_trim(8, "xhelloxworldx", "x", "helloxworld");
-    test_trim(9, "!!!abc!!!def!!!", "!", "abc!!!def");
-    test_trim(10, "ababHelloabab", "ab", "Hello");
+	char	**res;
+	char	buf[512];
+	size_t	i;
 
-    test_trim(11, "abcde", "abcde", "");
-    test_trim(12, "0001234000", "0", "1234");
-    test_trim(13, "  abcHello cba  ", " abc", "Hello");
-    test_trim(14, "###hello##world###", "#", "hello##world");
-    test_trim(15, "  -_hello_-  ", " -_", "hello");
-    test_trim(16, "aaaabaaaa", "a", "b");
-    test_trim(17, "aabcaad", "ad", "bc");
-    test_trim(18, "xyzHellozyx", "xyz", "Hello");
-    test_trim(19, "aaabbbcccaaa", "a", "bbbccc");
-    test_trim(20, "123abc321", "123", "abc");
+	g_fail_at = 0;
 
-    test_trim(21, "abXYabZab", "ab", "XYabZ");
-    test_trim(22, "___middle___", "_", "middle");
-    test_trim(23, "___middle__x", "_", "middle__x");
-    test_trim(24, "xxyxx", "x", "y");
-    test_trim(25, "  A B  ", " ", "A B");
-    test_trim(26, "\t\nhello\n\t", "\t\n ", "hello");
-    test_trim(27, "\r\rtext\r\r", "\r ", "text");
-    test_trim(28, "abab", "ab", "");
-    test_trim(29, "baac", "abc", "");
-    test_trim(30, "zzabczz", "z", "abc");
+	g_count = 0;
+	res = ft_split("hello world", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("01 | ft/expected: %s/[hello][world] | %s\n", buf,
+		strcmp(buf, "[hello][world]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
 
-    test_trim(31, "zzabczz", "abz", "c");
-    test_trim(32, "   ", " ", "");
-    test_trim(33, "a", "a", "");
-    test_trim(34, "a", "b", "a");
-    test_trim(35, "a", "", "a");
-    test_trim(36, "abcdef", "abf", "cde");
-    test_trim(37, "0123456789", "09", "12345678");
-    test_trim(38, "this is a test", " ", "this is a test");
-    test_trim(39, "xxabxx", "x", "ab");
-    test_trim(40, "aabbccbb", "ab", "cc");
+	g_count = 0;
+	res = ft_split("  hello  world  ", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("02 | ft/expected: %s/[hello][world] | %s\n", buf,
+		strcmp(buf, "[hello][world]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
 
-    return (0);
+	g_count = 0;
+	res = ft_split("hello", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("03 | ft/expected: %s/[hello] | %s\n", buf,
+		strcmp(buf, "[hello]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("04 | ft/expected: %s/ (empty) | %s\n", res ? buf : "RETURNED NULL",
+		res && i == 0 ? "OK" : "KO");
+	free(res);
+
+	g_count = 0;
+	res = ft_split("     ", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("05 | ft/expected: %s/ (empty) | %s\n", res ? buf : "RETURNED NULL",
+		res && i == 0 ? "OK" : "KO");
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a,b,,c,", ',');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("06 | ft/expected: %s/[a][b][c] | %s\n", buf,
+		strcmp(buf, "[a][b][c]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("hello world", 'x');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("07 | ft/expected: %s/[hello world] | %s\n", buf,
+		strcmp(buf, "[hello world]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("08 | ft/expected: %s/[a] | %s\n", buf,
+		strcmp(buf, "[a]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split(" ", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("09 | ft/expected: %s/ (empty) | %s\n", res ? buf : "RETURNED NULL",
+		res && i == 0 ? "OK" : "KO");
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a b", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("10 | ft/expected: %s/[a][b] | %s\n", buf,
+		strcmp(buf, "[a][b]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split(" a b ", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("11 | ft/expected: %s/[a][b] | %s\n", buf,
+		strcmp(buf, "[a][b]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("   hello", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("12 | ft/expected: %s/[hello] | %s\n", buf,
+		strcmp(buf, "[hello]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("hello   ", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("13 | ft/expected: %s/[hello] | %s\n", buf,
+		strcmp(buf, "[hello]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("one two three four five", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("14 | ft/expected: %s/[one][two][three][four][five] | %s\n", buf,
+		strcmp(buf, "[one][two][three][four][five]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a,b,c,d,e,f,g", ',');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("15 | ft/expected: %s/[a][b][c][d][e][f][g] | %s\n", buf,
+		strcmp(buf, "[a][b][c][d][e][f][g]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split(",,,a,,,b,,,", ',');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("16 | ft/expected: %s/[a][b] | %s\n", buf,
+		strcmp(buf, "[a][b]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("\t\nhello\n\tworld\t", '\t');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("17 | ft/expected: %zu words/2 words | %s\n", i,
+		i == 2 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("abcabcabc", 'b');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("18 | ft/expected: %s/[a][ca][ca][c] | %s\n", buf,
+		strcmp(buf, "[a][ca][ca][c]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("aaaa", 'a');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("19 | ft/expected: %s/ (empty) | %s\n", res ? buf : "RETURNED NULL",
+		res && i == 0 ? "OK" : "KO");
+	free(res);
+
+	g_count = 0;
+	res = ft_split("xhellox", 'x');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("20 | ft/expected: %s/[hello] | %s\n", buf,
+		strcmp(buf, "[hello]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a  b   c    d", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("21 | ft/expected: %s/[a][b][c][d] | %s\n", buf,
+		strcmp(buf, "[a][b][c][d]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("hello world", 'o');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("22 | ft/expected: %s/[hell][ w][rld] | %s\n", buf,
+		strcmp(buf, "[hell][ w][rld]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("a-b_c d", '-');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("23 | ft/expected: %s/[a][b_c d] | %s\n", buf,
+		strcmp(buf, "[a][b_c d]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	res = ft_split("hello world", '\0');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("24 | c='\\0' | ft/expected: %s/[hello world] | %s\n", buf,
+		strcmp(buf, "[hello world]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+
+	g_count = 0;
+	g_fail_at = 1;
+	res = ft_split("hello world", ' ');
+	printf("25 | malloc #1 fails (array) | ft/expected: %s/NULL | %s\n",
+		res ? "ARRAY" : "NULL", res == NULL ? "OK" : "KO");
+
+	g_count = 0;
+	g_fail_at = 2;
+	res = ft_split("hello world", ' ');
+	printf("26 | malloc #2 fails (word 1) | ft/expected: %s/NULL | %s\n",
+		res ? "ARRAY" : "NULL", res == NULL ? "OK" : "KO");
+
+	g_count = 0;
+	g_fail_at = 3;
+	res = ft_split("hello world", ' ');
+	printf("27 | malloc #3 fails (word 2) | ft/expected: %s/NULL | %s\n",
+		res ? "ARRAY" : "NULL", res == NULL ? "OK" : "KO");
+
+	g_count = 0;
+	g_fail_at = 4;
+	res = ft_split("one two three", ' ');
+	printf("28 | malloc #4 fails (word 3) | ft/expected: %s/NULL | %s\n",
+		res ? "ARRAY" : "NULL", res == NULL ? "OK" : "KO");
+
+	g_count = 0;
+	g_fail_at = 5;
+	res = ft_split("a b c d", ' ');
+	printf("29 | malloc #5 fails (word 4) | ft/expected: %s/NULL | %s\n",
+		res ? "ARRAY" : "NULL", res == NULL ? "OK" : "KO");
+
+	g_count = 0;
+	g_fail_at = 99;
+	res = ft_split("a b", ' ');
+	buf[0] = '\0';
+	i = 0;
+	while (res && res[i])
+	{
+		strcat(buf, "["); strcat(buf, res[i]); strcat(buf, "]");
+		i++;
+	}
+	printf("30 | malloc never fails | ft/expected: %s/[a][b] | %s\n", buf,
+		strcmp(buf, "[a][b]") == 0 ? "OK" : "KO");
+	while (i > 0)
+		free(res[--i]);
+	free(res);
+	return (0);
 }
