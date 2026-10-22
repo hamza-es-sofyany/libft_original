@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/22 16:42:07 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/22 16:42:15 by hes-sofy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), 
-void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-    
+	(void)lst;
+	(void)f;
+	(void)del;
+	return (NULL);
 }
