@@ -1,54 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/20 12:43:13 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 12:55:14 by hes-sofy         ###   ########.fr       */
+/*   Created: 2026/10/20 14:20:50 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/20 14:23:38 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "libft.h"
 
-char	*ft_nbr_str(int n, size_t len, long nb)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*str;
-
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	str[len] = '\0';
-	while (0 < len)
-	{
-		len--;
-		str[len] = (nb % 10) + '0';
-		nb /= 10;
-	}
-	if (n < 0)
-		str[0] = '-';
-	return (str);
-}
-
-char	*ft_itoa(int n)
-{
-	size_t	len;
 	long	nb;
-	char	*str;
+	size_t	i;
+	char	str[12];
 
-	len = 0;
 	nb = n;
-	if (nb <= 0)
-		len++;
-	while (nb != 0)
+	if (nb == 0)
 	{
-		nb /= 10;
-		len++;
+		ft_putchar_fd('0', fd);
+		return ;
 	}
-	nb = n;
 	if (nb < 0)
+	{
 		nb *= -1;
-	str = ft_nbr_str(n, len, nb);
-	return (str);
+		ft_putchar_fd('-', fd);
+	}
+	i = 0;
+	while (nb > 0)
+	{
+		str[i++] = nb % 10 + 48;
+		nb /= 10;
+	}
+	while (i > 0)
+		ft_putchar_fd(str[--i], fd);
 }

@@ -1,40 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/20 15:05:14 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 15:05:16 by hes-sofy         ###   ########.fr       */
+/*   Created: 2026/10/20 12:43:13 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/20 12:55:14 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_nbr_str(int n, size_t len, long nb)
 {
-	size_t	i;
-	size_t	j;
-	size_t	to_len;
 	char	*str;
 
-	to_len = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc(to_len + 1);
+	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s1[i])
+	str[len] = '\0';
+	while (0 < len)
 	{
-		str[i] = s1[i];
-		i++;
+		len--;
+		str[len] = (nb % 10) + '0';
+		nb /= 10;
 	}
-	j = 0;
-	while (s2[j])
+	if (n < 0)
+		str[0] = '-';
+	return (str);
+}
+
+char	*ft_itoa(int n)
+{
+	size_t	len;
+	long	nb;
+	char	*str;
+
+	len = 0;
+	nb = n;
+	if (nb <= 0)
+		len++;
+	while (nb != 0)
 	{
-		str[i + j] = s2[j];
-		j++;
+		nb /= 10;
+		len++;
 	}
-	str[i + j] = '\0';
+	nb = n;
+	if (nb < 0)
+		nb *= -1;
+	str = ft_nbr_str(n, len, nb);
 	return (str);
 }

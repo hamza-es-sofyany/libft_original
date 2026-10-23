@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/22 15:42:09 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/22 15:42:11 by hes-sofy         ###   ########.fr       */
+/*   Created: 2026/10/20 15:05:14 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/20 15:05:16 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list	*ptr;
+	size_t	i;
+	size_t	j;
+	size_t	to_len;
+	char	*str;
 
-	ptr = malloc(sizeof(t_list));
-	if (!ptr)
+	to_len = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(to_len + 1);
+	if (!str)
 		return (NULL);
-	ptr->content = content;
-	ptr->next = NULL;
-	return (ptr);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

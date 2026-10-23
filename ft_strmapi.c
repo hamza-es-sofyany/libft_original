@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/20 14:20:50 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 14:23:38 by hes-sofy         ###   ########.fr       */
+/*   Created: 2026/10/20 15:06:44 by hes-sofy          #+#    #+#             */
+/*   Updated: 2026/10/20 15:06:46 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	long	nb;
-	size_t	i;
-	char	str[12];
+	unsigned int	i;
+	char			*str;
+	size_t			len;
 
-	nb = n;
-	if (nb == 0)
-	{
-		ft_putchar_fd('0', fd);
-		return ;
-	}
-	if (nb < 0)
-	{
-		nb *= -1;
-		ft_putchar_fd('-', fd);
-	}
+	len = ft_strlen(s) + 1;
+	str = malloc(len);
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (nb > 0)
+	while (s[i])
 	{
-		str[i++] = nb % 10 + 48;
-		nb /= 10;
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	while (i > 0)
-		ft_putchar_fd(str[--i], fd);
+	str[i] = '\0';
+	return (str);
 }
