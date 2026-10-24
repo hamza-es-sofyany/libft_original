@@ -6,7 +6,7 @@
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 11:17:57 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/22 11:52:53 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:01:38 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
+	if (!lst || !new)
+		return ;
 	if (*lst == NULL)
 	{
 		*lst = new;

@@ -6,7 +6,7 @@
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:22:42 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/22 12:22:43 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:02:33 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
+	if (!lst || !del)
+		return ;
 	del(lst->content);
 	free(lst);
 }

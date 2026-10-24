@@ -6,7 +6,7 @@
 /*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 14:45:02 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/22 14:45:04 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:03:15 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*next2;
 
+	if (!lst || !del)
+		return ;
 	while (*lst)
 	{
 		next2 = (*lst)->next;
