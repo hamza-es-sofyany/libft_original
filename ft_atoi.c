@@ -12,30 +12,50 @@
 
 #include "libft.h"
 
+static int	ft_get_sign(const char *s, int *i)
+{
+	int	sign;
+
+	while (s[*i] == ' ' || (s[*i] >= 9 && s[*i] <= 13))
+		(*i)++;
+	sign = 1;
+	if (s[*i] == '+' || s[*i] == '-')
+	{
+		if (s[*i] == '-')
+			sign = -1;
+		(*i)++;
+	}
+	return (sign);
+}
+
+static int	ft_signe(int sign)
+{
+	if (sign == 1)
+		return (-1);
+	return (0);
+}
+
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	sigen;
-	int	result;
+	int				i;
+	int				sign;
+	unsigned long	result;
 
 	i = 0;
-	sigen = 1;
 	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '+' || nptr[i] == '-'))
+	sign = ft_get_sign(nptr, &i);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		if (nptr[i] == '-')
-			sigen *= -1;
+		if (result > 922337203685477580UL)
+			return (ft_signe(sign));
+		result = result * 10 + (nptr[i] - '0');
+		if (sign == 1 && result > 9223372036854775807UL)
+			return (-1);
+		if (sign == -1 && result > 9223372036854775808UL)
+			return (0);
 		i++;
 	}
-	if (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		while (nptr[i] >= '0' && nptr[i] <= '9')
-		{
-			result = (result * 10) + (nptr[i] - 48);
-			i++;
-		}
-	}
-	return (result * sigen);
+	if (sign == -1)
+		return ((int)(-result));
+	return ((int)result);
 }
