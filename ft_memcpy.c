@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 11:58:28 by hes-sofy          #+#    #+#             */
 /*   Updated: 2026/10/17 12:02:29 by hes-sofy         ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 14:52:13 by hes-sofy          #+#    #+#             */
 /*   Updated: 2026/10/24 08:59:11 by hes-sofy         ###   ########.fr       */

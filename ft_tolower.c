@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 18:09:05 by hes-sofy          #+#    #+#             */
 /*   Updated: 2026/10/17 18:09:08 by hes-sofy         ###   ########.fr       */

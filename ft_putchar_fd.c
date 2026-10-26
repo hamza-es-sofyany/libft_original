@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 14:19:31 by hes-sofy          #+#    #+#             */
 /*   Updated: 2026/10/20 14:19:33 by hes-sofy         ###   ########.fr       */

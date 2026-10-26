@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-sofy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 08:31:23 by hes-sofy          #+#    #+#             */
 /*   Updated: 2026/10/18 08:31:27 by hes-sofy         ###   ########.fr       */
