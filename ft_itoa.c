@@ -6,13 +6,13 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 12:43:13 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 12:55:14 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/26 10:51:49 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_nbr_str(int n, size_t len, long nb)
+static char	*ft_nbr_str(int n, size_t len, long nb)
 {
 	char	*str;
 

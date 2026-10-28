@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:13:11 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/24 09:04:03 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:05:54 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*next;
 
-	if (!f)
+	if (!lst || !f)
 		return ;
 	while (lst)
 	{

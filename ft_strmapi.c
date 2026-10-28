@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 15:06:44 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 15:06:46 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:02:21 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char			*str;
 	size_t			len;
 
+	if (!s || !f)
+		return (NULL);
 	len = ft_strlen(s) + 1;
 	str = malloc(len);
 	if (!str)

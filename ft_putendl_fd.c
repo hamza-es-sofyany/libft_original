@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 14:20:25 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 14:20:26 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/26 12:04:18 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_putendl_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return ;
 	while (s[i])
 	{
 		ft_putchar_fd(s[i], fd);

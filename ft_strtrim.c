@@ -6,13 +6,13 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 15:20:10 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/20 15:27:26 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/26 10:52:20 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_trim_start(char const *s1, char const *set)
+static size_t	ft_trim_start(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
@@ -36,7 +36,7 @@ size_t	ft_trim_start(char const *s1, char const *set)
 	return (i);
 }
 
-size_t	ft_trim_end(char const *s1, char const *set, size_t start)
+static size_t	ft_trim_end(char const *s1, char const *set, size_t start)
 {
 	size_t	i;
 	size_t	j;
@@ -60,7 +60,7 @@ size_t	ft_trim_end(char const *s1, char const *set, size_t start)
 	return (i);
 }
 
-char	*ft_copy_range(char const *s, size_t from, size_t to)
+static char	*ft_copy_range(char const *s, size_t from, size_t to)
 {
 	char	*str;
 	size_t	i;

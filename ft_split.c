@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 14:34:56 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/23 17:08:15 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:04:55 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ char	**ft_split(char const *s, char c)
 	char	**str;
 	size_t	to_len;
 
+	if (!s)
+		return (NULL);
 	to_len = ft_count_words(s, c);
 	str = malloc((to_len + 1) * sizeof(char *));
 	if (!str)
