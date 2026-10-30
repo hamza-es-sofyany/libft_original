@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 17:17:34 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/17 17:18:30 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/29 15:59:32 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	while ((i < n) && (pt1[i] || pt2[i]))
 	{
-		if (pt1[i] > pt2[i])
-			return (1);
-		else if (pt1[i] < pt2[i])
-		{
-			return (-1);
-		}
+		if (pt1[i] != pt2[i])
+			return (pt1[i] - pt2[i]);
 		i++;
 	}
 	return (0);

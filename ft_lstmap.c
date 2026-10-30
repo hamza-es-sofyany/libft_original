@@ -6,7 +6,7 @@
 /*   By: hes-sofy <hes-sofy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/24 09:04:38 by hes-sofy          #+#    #+#             */
-/*   Updated: 2026/10/24 09:14:57 by hes-sofy         ###   ########.fr       */
+/*   Updated: 2026/10/30 11:06:08 by hes-sofy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*node;
 	void	*content;
 
-	if (!lst || !f)
+	if (!lst || !f || !del)
 		return (NULL);
 	new_list = NULL;
 	while (lst)
@@ -27,8 +27,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		node = ft_lstnew(content);
 		if (!node)
 		{
-			if (del)
-				del(content);
+			del(content);
 			ft_lstclear(&new_list, del);
 			return (NULL);
 		}
