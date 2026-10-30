@@ -123,7 +123,7 @@ Then run it:
 
 - [Libft Subject — 42/1337](https://www.42network.org/)
 - [W3Schools — C Tutorial](https://www.w3schools.com/c/)
-- [Programiz — C Programming](https://www.programiz.com/c-programming)
+- [Python Tutor — Visualize code execution](https://pythontutor.com/)
 
 ### AI Usage
 
