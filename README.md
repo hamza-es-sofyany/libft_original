@@ -121,7 +121,7 @@ Then run it:
 
 ## 3. Resources
 
-- [Libft Subject — 42/1337](https://www.42network.org/)
+- [cppreference — C Language](https://en.cppreference.com/w/c)
 - [W3Schools — C Tutorial](https://www.w3schools.com/c/)
 - [Python Tutor — Visualize code execution](https://pythontutor.com/)
 
